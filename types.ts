@@ -28,3 +28,13 @@ export interface DebateTopic {
   topic: string;
   category: string;
 }
+
+export type RoundType = 'NORMAL' | 'CHESS';
+
+export interface Round {
+  id: string;
+  title: string;
+  type: RoundType;
+  durationMinutes: number;
+  speaker?: 'A' | 'B'; // Only for NORMAL
+}

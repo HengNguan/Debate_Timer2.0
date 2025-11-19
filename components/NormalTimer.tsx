@@ -1,15 +1,33 @@
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 import { Button } from './Button';
 import { TimerDisplay } from './TimerDisplay';
+import { playAlertSound } from '../utils/sound';
 
 const DEFAULT_TIME_MS = 4 * 60 * 1000; // 4 minutes
 
-export const NormalTimer: React.FC = () => {
-  const [duration, setDuration] = useState(DEFAULT_TIME_MS);
-  const [remaining, setRemaining] = useState(DEFAULT_TIME_MS);
+interface NormalTimerProps {
+  initialDuration?: number; // in minutes
+  speakerLabel?: string;
+}
+
+export const NormalTimer: React.FC<NormalTimerProps> = ({ initialDuration, speakerLabel }) => {
+  // Convert minutes to ms if provided, else default
+  const startDuration = initialDuration ? initialDuration * 60 * 1000 : DEFAULT_TIME_MS;
+
+  const [duration, setDuration] = useState(startDuration);
+  const [remaining, setRemaining] = useState(startDuration);
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef<number | null>(null);
+
+  // Reset whenever the initial configuration changes (e.g. changing rounds)
+  useEffect(() => {
+    const newDuration = initialDuration ? initialDuration * 60 * 1000 : DEFAULT_TIME_MS;
+    setDuration(newDuration);
+    setRemaining(newDuration);
+    setIsRunning(false);
+  }, [initialDuration]);
 
   const handleStartPause = useCallback(() => {
     setIsRunning(prev => !prev);
@@ -31,11 +49,21 @@ export const NormalTimer: React.FC = () => {
     if (isRunning && remaining > 0) {
       timerRef.current = window.setInterval(() => {
         setRemaining(prev => {
-          if (prev <= 100) {
+          const nextTime = prev - 100;
+
+          // Sound Triggers
+          // 1. 30s Warning: Trigger if we crossed the 30000ms mark
+          if (prev > 30000 && nextTime <= 30000) {
+            playAlertSound('warning');
+          }
+
+          // 2. Time Up
+          if (nextTime <= 0) {
+            playAlertSound('end');
             setIsRunning(false);
             return 0;
           }
-          return prev - 100;
+          return nextTime;
         });
       }, 100);
     } else {
@@ -50,7 +78,9 @@ export const NormalTimer: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center space-y-12 h-full w-full py-8">
       <div className="flex flex-col items-center space-y-4">
-        <h2 className="text-slate-400 text-xl font-medium uppercase tracking-widest">Current Speaker</h2>
+        <h2 className="text-slate-400 text-xl font-medium uppercase tracking-widest">
+          {speakerLabel || "Current Speaker"}
+        </h2>
         <TimerDisplay milliseconds={remaining} isLowTime={remaining < 30000 && remaining > 0} />
       </div>
 
@@ -75,22 +105,24 @@ export const NormalTimer: React.FC = () => {
         </Button>
       </div>
 
-      {/* Settings */}
-      <div className="flex gap-2 mt-8 bg-slate-800/50 p-2 rounded-xl">
-        {[3, 4, 5, 7, 10].map(min => (
-          <button
-            key={min}
-            onClick={() => adjustTime(min)}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-              duration === min * 60 * 1000 
-                ? 'bg-brand-600 text-white shadow-lg' 
-                : 'text-slate-400 hover:text-white hover:bg-slate-700'
-            }`}
-          >
-            {min}m
-          </button>
-        ))}
-      </div>
+      {/* Settings - Hide predefined buttons if controlled by flow (initialDuration passed) */}
+      {!initialDuration && (
+        <div className="flex gap-2 mt-8 bg-slate-800/50 p-2 rounded-xl">
+          {[3, 4, 5, 7, 10].map(min => (
+            <button
+              key={min}
+              onClick={() => adjustTime(min)}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                duration === min * 60 * 1000 
+                  ? 'bg-brand-600 text-white shadow-lg' 
+                  : 'text-slate-400 hover:text-white hover:bg-slate-700'
+              }`}
+            >
+              {min}m
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

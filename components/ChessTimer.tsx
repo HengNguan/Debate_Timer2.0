@@ -1,21 +1,37 @@
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Pause, Play, RotateCcw, User } from 'lucide-react';
 import { Button } from './Button';
 import { TimerDisplay } from './TimerDisplay';
 import { SpeakerState } from '../types';
+import { playAlertSound } from '../utils/sound';
 
 const DEFAULT_TIME_MS = 5 * 60 * 1000; // 5 minutes per side
 
-export const ChessTimer: React.FC = () => {
-  const [timeA, setTimeA] = useState(DEFAULT_TIME_MS);
-  const [timeB, setTimeB] = useState(DEFAULT_TIME_MS);
+interface ChessTimerProps {
+  initialTime?: number; // in minutes per side
+}
+
+export const ChessTimer: React.FC<ChessTimerProps> = ({ initialTime }) => {
+  // Calculate start time based on prop or default
+  const startMs = initialTime ? initialTime * 60 * 1000 : DEFAULT_TIME_MS;
+
+  const [timeA, setTimeA] = useState(startMs);
+  const [timeB, setTimeB] = useState(startMs);
   const [activeSpeaker, setActiveSpeaker] = useState<SpeakerState>(SpeakerState.IDLE);
-  const [pausedState, setPausedState] = useState<SpeakerState>(SpeakerState.IDLE); // To remember who was active before pause
+  const [pausedState, setPausedState] = useState<SpeakerState>(SpeakerState.IDLE); 
   
   const timerRef = useRef<number | null>(null);
 
-  // If we are paused (IDLE), but we have a remembered state, it means we are "Paused in game".
-  // If pausedState is IDLE, it means we are fully reset/stopped.
+  // Reset when initialTime prop changes
+  useEffect(() => {
+    const newStartMs = initialTime ? initialTime * 60 * 1000 : DEFAULT_TIME_MS;
+    setTimeA(newStartMs);
+    setTimeB(newStartMs);
+    setActiveSpeaker(SpeakerState.IDLE);
+    setPausedState(SpeakerState.IDLE);
+  }, [initialTime]);
+
   const isPaused = activeSpeaker === SpeakerState.IDLE && pausedState !== SpeakerState.IDLE;
 
   const toggleTimer = (speaker: 'A' | 'B') => {
@@ -25,20 +41,18 @@ export const ChessTimer: React.FC = () => {
         // Resume
         setActiveSpeaker(pausedState);
       } else {
-        // Start fresh (usually Speaker A starts first in debates, or whoever is clicked)
+        // Start fresh
         setActiveSpeaker(speaker === 'A' ? SpeakerState.SPEAKER_A : SpeakerState.SPEAKER_B);
       }
     } else {
       // Switch turns
       if ((speaker === 'A' && activeSpeaker === SpeakerState.SPEAKER_A) ||
           (speaker === 'B' && activeSpeaker === SpeakerState.SPEAKER_B)) {
-        // If current speaker clicks their own button, their time stops, other starts
          setActiveSpeaker(speaker === 'A' ? SpeakerState.SPEAKER_B : SpeakerState.SPEAKER_A);
       }
     }
   };
 
-  // Global Pause/Resume for the moderator
   const handleGlobalPause = () => {
     if (activeSpeaker !== SpeakerState.IDLE) {
       setPausedState(activeSpeaker);
@@ -49,10 +63,11 @@ export const ChessTimer: React.FC = () => {
   };
 
   const handleReset = () => {
+    const resetTime = initialTime ? initialTime * 60 * 1000 : DEFAULT_TIME_MS;
     setActiveSpeaker(SpeakerState.IDLE);
     setPausedState(SpeakerState.IDLE);
-    setTimeA(DEFAULT_TIME_MS);
-    setTimeB(DEFAULT_TIME_MS);
+    setTimeA(resetTime);
+    setTimeB(resetTime);
   };
 
   useEffect(() => {
@@ -61,9 +76,19 @@ export const ChessTimer: React.FC = () => {
     if (activeSpeaker !== SpeakerState.IDLE) {
       timerRef.current = window.setInterval(() => {
         if (activeSpeaker === SpeakerState.SPEAKER_A) {
-          setTimeA(prev => Math.max(0, prev - 100));
+          setTimeA(prev => {
+            const next = Math.max(0, prev - 100);
+            if (prev > 30000 && next <= 30000) playAlertSound('warning');
+            if (next === 0 && prev > 0) playAlertSound('end');
+            return next;
+          });
         } else {
-          setTimeB(prev => Math.max(0, prev - 100));
+          setTimeB(prev => {
+            const next = Math.max(0, prev - 100);
+            if (prev > 30000 && next <= 30000) playAlertSound('warning');
+            if (next === 0 && prev > 0) playAlertSound('end');
+            return next;
+          });
         }
       }, 100);
     }
@@ -73,7 +98,6 @@ export const ChessTimer: React.FC = () => {
     };
   }, [activeSpeaker]);
 
-  // Determine visual states
   const isAActive = activeSpeaker === SpeakerState.SPEAKER_A;
   const isBActive = activeSpeaker === SpeakerState.SPEAKER_B;
 
