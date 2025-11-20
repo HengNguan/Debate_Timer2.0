@@ -49,7 +49,7 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 text-brand-500">
             <Mic2 className="w-6 h-6" />
-            <h1 className="font-bold text-xl tracking-tight text-white">DebateMaster AI</h1>
+            <h1 className="font-bold text-xl tracking-tight text-white">辩论大师 AI</h1>
           </div>
 
           <nav className="flex bg-slate-800/50 p-1 rounded-lg">
@@ -61,7 +61,7 @@ const App: React.FC = () => {
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              <Timer className="w-4 h-4" /> Timer
+              <Timer className="w-4 h-4" /> 计时器
             </button>
             <button
               onClick={() => setCurrentTab('FLOW')}
@@ -71,7 +71,7 @@ const App: React.FC = () => {
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              <List className="w-4 h-4" /> Flow
+              <List className="w-4 h-4" /> 流程
             </button>
             <button
               onClick={() => setCurrentTab('TOOLS')}
@@ -81,7 +81,7 @@ const App: React.FC = () => {
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              <Sparkles className="w-4 h-4" /> AI Tools
+              <Sparkles className="w-4 h-4" /> AI 工具
             </button>
           </nav>
         </div>
@@ -122,12 +122,12 @@ const App: React.FC = () => {
                     disabled={currentRoundIndex === 0}
                     className="flex items-center gap-1 text-slate-400 hover:text-white disabled:opacity-30 transition-colors"
                   >
-                    <ChevronLeft className="w-5 h-5" /> Prev
+                    <ChevronLeft className="w-5 h-5" /> 上一环节
                   </button>
 
                   <div className="text-center">
                     <div className="text-xs text-slate-400 font-bold tracking-widest uppercase mb-1">
-                      Round {currentRoundIndex + 1} of {rounds.length}
+                      第 {currentRoundIndex + 1} / {rounds.length} 环节
                     </div>
                     <div className="text-white font-bold flex items-center gap-2 justify-center text-lg shadow-black drop-shadow-md">
                       {currentRound.title}
@@ -139,7 +139,7 @@ const App: React.FC = () => {
                     disabled={currentRoundIndex === rounds.length - 1}
                     className="flex items-center gap-1 text-slate-400 hover:text-white disabled:opacity-30 transition-colors"
                   >
-                    Next <ChevronRight className="w-5 h-5" />
+                    下一环节 <ChevronRight className="w-5 h-5" />
                   </button>
                 </div>
               ) : (
@@ -153,7 +153,7 @@ const App: React.FC = () => {
                         : 'text-slate-500 hover:text-slate-300'
                       }`}
                     >
-                      Normal Mode
+                      普通模式
                     </button>
                     <button 
                       onClick={() => setTimerMode(TimerMode.CHESS)}
@@ -163,7 +163,7 @@ const App: React.FC = () => {
                         : 'text-slate-500 hover:text-slate-300'
                       }`}
                     >
-                      <Users className="w-4 h-4" /> Back & Forth
+                      <Users className="w-4 h-4" /> 自由辩论
                     </button>
                   </div>
                 </div>
@@ -176,7 +176,7 @@ const App: React.FC = () => {
                     <NormalTimer 
                       key={currentRound.id} 
                       initialDuration={currentRound.durationMinutes}
-                      speakerLabel={`Speaker ${currentRound.speaker}`}
+                      speakerLabel={currentRound.speaker === 'A' ? '正方' : '反方'}
                     />
                   ) : (
                     <ChessTimer 

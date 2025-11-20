@@ -61,11 +61,11 @@ export const RoundManager: React.FC<RoundManagerProps> = ({
 
   const loadTemplate = () => {
     const template: Round[] = [
-      { id: '1', title: 'Proposition Opening', type: 'NORMAL', durationMinutes: 4, speaker: 'A' },
-      { id: '2', title: 'Opposition Opening', type: 'NORMAL', durationMinutes: 4, speaker: 'B' },
-      { id: '3', title: 'Open Debate', type: 'CHESS', durationMinutes: 3 },
-      { id: '4', title: 'Opposition Closing', type: 'NORMAL', durationMinutes: 3, speaker: 'B' },
-      { id: '5', title: 'Proposition Closing', type: 'NORMAL', durationMinutes: 3, speaker: 'A' },
+      { id: '1', title: '正方立论', type: 'NORMAL', durationMinutes: 4, speaker: 'A' },
+      { id: '2', title: '反方立论', type: 'NORMAL', durationMinutes: 4, speaker: 'B' },
+      { id: '3', title: '自由辩论', type: 'CHESS', durationMinutes: 3 },
+      { id: '4', title: '反方结辩', type: 'NORMAL', durationMinutes: 3, speaker: 'B' },
+      { id: '5', title: '正方结辩', type: 'NORMAL', durationMinutes: 3, speaker: 'A' },
     ];
     setRounds(template);
   };
@@ -87,18 +87,18 @@ export const RoundManager: React.FC<RoundManagerProps> = ({
       {/* Header & Actions */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-slate-800/50 p-6 rounded-2xl border border-slate-700">
         <div>
-          <h2 className="text-2xl font-bold text-white">Debate Setup</h2>
-          <p className="text-slate-400">Configure your competition details and round sequence.</p>
+          <h2 className="text-2xl font-bold text-white">辩论设置</h2>
+          <p className="text-slate-400">配置比赛详情和环节流程。</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="secondary" onClick={loadTemplate}>Load Standard</Button>
+          <Button variant="secondary" onClick={loadTemplate}>加载标准流程</Button>
           <Button 
             variant="primary" 
             onClick={onStartDebate}
             disabled={rounds.length === 0}
             className="bg-brand-600 hover:bg-brand-500 shadow-lg shadow-brand-500/20"
           >
-            <Play className="w-4 h-4 mr-2" /> Start Sequence
+            <Play className="w-4 h-4 mr-2" /> 开始流程
           </Button>
         </div>
       </div>
@@ -107,20 +107,20 @@ export const RoundManager: React.FC<RoundManagerProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Competition Name */}
         <div className="bg-slate-900 p-6 rounded-xl border border-slate-800">
-           <label className="block text-sm font-bold text-slate-300 mb-2">Competition Name</label>
+           <label className="block text-sm font-bold text-slate-300 mb-2">比赛名称</label>
            <input 
               type="text"
               value={competitionName}
               onChange={(e) => setCompetitionName(e.target.value)}
-              placeholder="e.g. National Debate Championship 2024"
+              placeholder="例如：2024全国大学生辩论赛"
               className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-brand-500 outline-none"
            />
-           <p className="text-xs text-slate-500 mt-2">Displayed at the top of the timer screen.</p>
+           <p className="text-xs text-slate-500 mt-2">显示在计时器顶部。</p>
         </div>
 
         {/* Background Image */}
         <div className="bg-slate-900 p-6 rounded-xl border border-slate-800">
-           <label className="block text-sm font-bold text-slate-300 mb-2">Timer Background</label>
+           <label className="block text-sm font-bold text-slate-300 mb-2">计时器背景</label>
            
            {!backgroundImage ? (
              <div 
@@ -128,7 +128,7 @@ export const RoundManager: React.FC<RoundManagerProps> = ({
                className="border-2 border-dashed border-slate-700 rounded-lg h-32 flex flex-col items-center justify-center cursor-pointer hover:border-brand-500 hover:bg-slate-800 transition-colors group"
              >
                <Upload className="w-8 h-8 text-slate-500 group-hover:text-brand-400 mb-2" />
-               <span className="text-sm text-slate-400 group-hover:text-slate-200">Click to upload image</span>
+               <span className="text-sm text-slate-400 group-hover:text-slate-200">点击上传图片</span>
                <input 
                  ref={fileInputRef}
                  type="file" 
@@ -142,7 +142,7 @@ export const RoundManager: React.FC<RoundManagerProps> = ({
                <img src={backgroundImage} alt="Background Preview" className="w-full h-full object-cover opacity-70" />
                <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
                   <Button variant="danger" size="sm" onClick={() => setBackgroundImage(null)}>
-                    <Trash2 className="w-4 h-4 mr-2" /> Remove
+                    <Trash2 className="w-4 h-4 mr-2" /> 移除
                   </Button>
                </div>
              </div>
@@ -155,7 +155,7 @@ export const RoundManager: React.FC<RoundManagerProps> = ({
       {/* Round List */}
       <div>
         <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-          <Clock className="w-5 h-5 text-brand-500" /> Round Sequence
+          <Clock className="w-5 h-5 text-brand-500" /> 环节流程
         </h3>
         
         <div className="space-y-3">
@@ -191,15 +191,15 @@ export const RoundManager: React.FC<RoundManagerProps> = ({
                 <h3 className="font-bold text-white">{round.title}</h3>
                 <div className="flex gap-3 text-sm text-slate-400">
                   <span className="flex items-center gap-1">
-                    {round.type === 'NORMAL' ? 'Standard Timer' : 'Back & Forth'}
+                    {round.type === 'NORMAL' ? '标准计时' : '自由辩论'}
                   </span>
                   <span>•</span>
-                  <span>{round.durationMinutes} mins</span>
+                  <span>{round.durationMinutes} 分钟</span>
                   {round.speaker && (
                     <>
                       <span>•</span>
                       <span className={round.speaker === 'A' ? 'text-brand-400' : 'text-emerald-400'}>
-                        Speaker {round.speaker}
+                        {round.speaker === 'A' ? '正方' : '反方'}
                       </span>
                     </>
                   )}
@@ -217,7 +217,7 @@ export const RoundManager: React.FC<RoundManagerProps> = ({
 
           {rounds.length === 0 && (
             <div className="text-center py-12 text-slate-500 border-2 border-dashed border-slate-800 rounded-xl">
-              No rounds added yet. Load a template or add rounds manually.
+              暂无环节。请加载模板或手动添加。
             </div>
           )}
         </div>
@@ -226,14 +226,14 @@ export const RoundManager: React.FC<RoundManagerProps> = ({
       {/* Add New Round Form */}
       <div className="bg-slate-900 p-6 rounded-xl border border-slate-800">
         <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-          <Plus className="w-5 h-5 text-brand-500" /> Add Custom Round
+          <Plus className="w-5 h-5 text-brand-500" /> 添加自定义环节
         </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
           <div className="md:col-span-4">
             <input 
               type="text" 
-              placeholder="Round Title (e.g., Opening)" 
+              placeholder="环节名称（例如：开篇立论）" 
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-500 outline-none"
@@ -246,8 +246,8 @@ export const RoundManager: React.FC<RoundManagerProps> = ({
                onChange={(e) => setNewType(e.target.value as RoundType)}
                className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-500 outline-none"
              >
-               <option value="NORMAL">Standard</option>
-               <option value="CHESS">Back & Forth</option>
+               <option value="NORMAL">标准模式</option>
+               <option value="CHESS">自由辩论</option>
              </select>
           </div>
 
@@ -259,7 +259,7 @@ export const RoundManager: React.FC<RoundManagerProps> = ({
               onChange={(e) => setNewDuration(parseInt(e.target.value))}
               className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-500 outline-none"
             />
-            <span className="absolute right-3 top-2.5 text-slate-500 text-sm pointer-events-none">min</span>
+            <span className="absolute right-3 top-2.5 text-slate-500 text-sm pointer-events-none">分钟</span>
           </div>
 
           <div className="md:col-span-2">
@@ -269,13 +269,13 @@ export const RoundManager: React.FC<RoundManagerProps> = ({
               disabled={newType !== 'NORMAL'}
               className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-brand-500 outline-none disabled:opacity-50"
             >
-              <option value="A">Speaker A</option>
-              <option value="B">Speaker B</option>
+              <option value="A">正方</option>
+              <option value="B">反方</option>
             </select>
           </div>
 
           <div className="md:col-span-2">
-            <Button onClick={addRound} className="w-full" disabled={!newTitle}>Add</Button>
+            <Button onClick={addRound} className="w-full" disabled={!newTitle}>添加</Button>
           </div>
         </div>
       </div>

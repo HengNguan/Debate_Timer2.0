@@ -8,7 +8,8 @@ export const generateDebateTopics = async (context: string): Promise<DebateTopic
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: `Generate 5 interesting, controversial, or balanced debate motions related to: "${context}". 
-      Return them as a JSON list of objects with 'topic' and 'category'.`,
+      Return them as a JSON list of objects with 'topic' and 'category'. 
+      The content MUST be in Simplified Chinese (Mandarin).`,
       config: {
         responseMimeType: "application/json",
         responseSchema: {

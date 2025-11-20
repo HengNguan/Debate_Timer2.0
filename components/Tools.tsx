@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { generateDebateTopics, generateTeamMascot } from '../services/geminiService';
 import { AspectRatio, DebateTopic } from '../types';
@@ -23,7 +24,7 @@ export const Tools: React.FC = () => {
       const results = await generateDebateTopics(topicContext);
       setTopics(results);
     } catch (e) {
-      alert("Failed to generate topics. Check API Key.");
+      alert("生成辩题失败。请检查 API Key。");
     } finally {
       setIsTopicLoading(false);
     }
@@ -36,7 +37,7 @@ export const Tools: React.FC = () => {
       const url = await generateTeamMascot(imagePrompt, aspectRatio);
       setGeneratedImage(url);
     } catch (e) {
-      alert("Failed to generate image. Check API Key.");
+      alert("生成图片失败。请检查 API Key。");
     } finally {
       setIsImageLoading(false);
     }
@@ -52,25 +53,25 @@ export const Tools: React.FC = () => {
              <Sparkles className="w-6 h-6 text-purple-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">Motion Generator</h2>
-            <p className="text-slate-400 text-sm">Powered by Gemini 2.5 Flash</p>
+            <h2 className="text-xl font-bold text-white">辩题生成器</h2>
+            <p className="text-slate-400 text-sm">由 Gemini 2.5 Flash 驱动</p>
           </div>
         </div>
 
         <div className="space-y-4 flex-1">
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">Broad Subject</label>
+            <label className="block text-sm font-medium text-slate-300 mb-1">主题范围</label>
             <div className="flex gap-2">
               <input 
                 type="text" 
                 value={topicContext}
                 onChange={(e) => setTopicContext(e.target.value)}
-                placeholder="e.g., Artificial Intelligence, Economy, Sports..."
+                placeholder="例如：人工智能、经济、体育..."
                 className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-purple-500 outline-none"
                 onKeyDown={(e) => e.key === 'Enter' && handleTopicGen()}
               />
               <Button onClick={handleTopicGen} disabled={isTopicLoading || !topicContext}>
-                {isTopicLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Generate'}
+                {isTopicLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : '生成'}
               </Button>
             </div>
           </div>
@@ -85,7 +86,7 @@ export const Tools: React.FC = () => {
               ))
             ) : (
               <div className="h-48 flex items-center justify-center text-slate-500 border-2 border-dashed border-slate-700 rounded-xl">
-                Enter a subject to see debate motions
+                输入主题以查看辩题
               </div>
             )}
           </div>
@@ -99,34 +100,34 @@ export const Tools: React.FC = () => {
              <ImageIcon className="w-6 h-6 text-pink-400" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">Mascot Creator</h2>
-            <p className="text-slate-400 text-sm">Powered by Imagen 3</p>
+            <h2 className="text-xl font-bold text-white">吉祥物生成器</h2>
+            <p className="text-slate-400 text-sm">由 Imagen 3 驱动</p>
           </div>
         </div>
 
         <div className="space-y-4 flex-1">
           <div>
-             <label className="block text-sm font-medium text-slate-300 mb-1">Team Name / Concept</label>
+             <label className="block text-sm font-medium text-slate-300 mb-1">队伍名称 / 概念</label>
              <textarea 
                value={imagePrompt}
                onChange={(e) => setImagePrompt(e.target.value)}
-               placeholder="e.g., A wise owl debating a robot on a podium..."
+               placeholder="例如：一只聪明的猫头鹰站在讲台上与机器人辩论..."
                className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-pink-500 outline-none h-24 resize-none"
              />
           </div>
 
           <div>
-             <label className="block text-sm font-medium text-slate-300 mb-1">Aspect Ratio</label>
+             <label className="block text-sm font-medium text-slate-300 mb-1">长宽比</label>
              <select 
                value={aspectRatio}
                onChange={(e) => setAspectRatio(e.target.value as AspectRatio)}
                className="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-pink-500 outline-none"
              >
-               <option value={AspectRatio.SQUARE}>Square (1:1)</option>
-               <option value={AspectRatio.LANDSCAPE}>Landscape (4:3)</option>
-               <option value={AspectRatio.PORTRAIT}>Portrait (3:4)</option>
-               <option value={AspectRatio.WIDE}>Wide (16:9)</option>
-               <option value={AspectRatio.TALL}>Story (9:16)</option>
+               <option value={AspectRatio.SQUARE}>正方形 (1:1)</option>
+               <option value={AspectRatio.LANDSCAPE}>横屏 (4:3)</option>
+               <option value={AspectRatio.PORTRAIT}>竖屏 (3:4)</option>
+               <option value={AspectRatio.WIDE}>宽屏 (16:9)</option>
+               <option value={AspectRatio.TALL}>快拍 (9:16)</option>
              </select>
           </div>
 
@@ -136,9 +137,9 @@ export const Tools: React.FC = () => {
             className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 border-none"
           >
              {isImageLoading ? (
-               <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Creating Artwork...</>
+               <><Loader2 className="w-5 h-5 animate-spin mr-2" /> 正在创作...</>
              ) : (
-               <><RefreshCw className="w-5 h-5 mr-2" /> Generate Mascot</>
+               <><RefreshCw className="w-5 h-5 mr-2" /> 生成吉祥物</>
              )}
           </Button>
 
@@ -148,12 +149,12 @@ export const Tools: React.FC = () => {
                 <img src={generatedImage} alt="Generated Mascot" className="w-full h-full object-contain max-h-[300px]" />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <a href={generatedImage} download="mascot.png" className="bg-white text-slate-900 px-4 py-2 rounded-full font-bold flex items-center">
-                    <Download className="w-4 h-4 mr-2" /> Download
+                    <Download className="w-4 h-4 mr-2" /> 下载
                   </a>
                 </div>
               </>
             ) : (
-              <div className="text-slate-500 text-sm">Generated artwork will appear here</div>
+              <div className="text-slate-500 text-sm">生成的图片将显示在这里</div>
             )}
           </div>
         </div>

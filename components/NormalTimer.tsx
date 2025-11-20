@@ -79,7 +79,7 @@ export const NormalTimer: React.FC<NormalTimerProps> = ({ initialDuration, speak
     <div className="flex flex-col items-center justify-center space-y-12 h-full w-full py-8">
       <div className="flex flex-col items-center space-y-4">
         <h2 className="text-slate-400 text-xl font-medium uppercase tracking-widest">
-          {speakerLabel || "Current Speaker"}
+          {speakerLabel || "当前发言"}
         </h2>
         <TimerDisplay milliseconds={remaining} isLowTime={remaining < 30000 && remaining > 0} />
       </div>
@@ -90,7 +90,7 @@ export const NormalTimer: React.FC<NormalTimerProps> = ({ initialDuration, speak
           variant="secondary" 
           size="lg" 
           onClick={handleReset}
-          aria-label="Reset Timer"
+          aria-label="重置计时器"
         >
           <RotateCcw className="w-6 h-6" />
         </Button>
@@ -118,7 +118,7 @@ export const NormalTimer: React.FC<NormalTimerProps> = ({ initialDuration, speak
                   : 'text-slate-400 hover:text-white hover:bg-slate-700'
               }`}
             >
-              {min}m
+              {min}分钟
             </button>
           ))}
         </div>
