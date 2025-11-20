@@ -1,19 +1,34 @@
-import React, { useState } from 'react';
+
+import React, { useState, useRef } from 'react';
 import { Round, RoundType } from '../types';
 import { Button } from './Button';
-import { Plus, Trash2, Play, MoveUp, MoveDown, Clock, Users } from 'lucide-react';
+import { Plus, Trash2, Play, MoveUp, MoveDown, Clock, Users, Image as ImageIcon, X, Upload } from 'lucide-react';
 
 interface RoundManagerProps {
   rounds: Round[];
   setRounds: React.Dispatch<React.SetStateAction<Round[]>>;
   onStartDebate: () => void;
+  competitionName: string;
+  setCompetitionName: (name: string) => void;
+  backgroundImage: string | null;
+  setBackgroundImage: (url: string | null) => void;
 }
 
-export const RoundManager: React.FC<RoundManagerProps> = ({ rounds, setRounds, onStartDebate }) => {
+export const RoundManager: React.FC<RoundManagerProps> = ({ 
+  rounds, 
+  setRounds, 
+  onStartDebate,
+  competitionName,
+  setCompetitionName,
+  backgroundImage,
+  setBackgroundImage
+}) => {
   const [newTitle, setNewTitle] = useState('');
   const [newDuration, setNewDuration] = useState(4);
   const [newType, setNewType] = useState<RoundType>('NORMAL');
   const [newSpeaker, setNewSpeaker] = useState<'A' | 'B'>('A');
+  
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const addRound = () => {
     if (!newTitle) return;
@@ -55,14 +70,25 @@ export const RoundManager: React.FC<RoundManagerProps> = ({ rounds, setRounds, o
     setRounds(template);
   };
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setBackgroundImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8">
+    <div className="max-w-4xl mx-auto p-6 space-y-8 pb-20">
       
       {/* Header & Actions */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-slate-800/50 p-6 rounded-2xl border border-slate-700">
         <div>
-          <h2 className="text-2xl font-bold text-white">Debate Flow</h2>
-          <p className="text-slate-400">Configure the sequence of rounds for your debate.</p>
+          <h2 className="text-2xl font-bold text-white">Debate Setup</h2>
+          <p className="text-slate-400">Configure your competition details and round sequence.</p>
         </div>
         <div className="flex gap-3">
           <Button variant="secondary" onClick={loadTemplate}>Load Standard</Button>
@@ -70,76 +96,131 @@ export const RoundManager: React.FC<RoundManagerProps> = ({ rounds, setRounds, o
             variant="primary" 
             onClick={onStartDebate}
             disabled={rounds.length === 0}
-            className="bg-brand-600 hover:bg-brand-500"
+            className="bg-brand-600 hover:bg-brand-500 shadow-lg shadow-brand-500/20"
           >
             <Play className="w-4 h-4 mr-2" /> Start Sequence
           </Button>
         </div>
       </div>
 
-      {/* List of Rounds */}
-      <div className="space-y-3">
-        {rounds.map((round, index) => (
-          <div key={round.id} className="flex items-center gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-slate-600 transition-colors">
-            <div className="flex flex-col items-center justify-center gap-1 w-8">
-              <button 
-                onClick={() => moveRound(index, 'up')} 
-                disabled={index === 0}
-                className="text-slate-500 hover:text-white disabled:opacity-20"
-              >
-                <MoveUp className="w-4 h-4" />
-              </button>
-              <span className="text-xs font-bold text-slate-600">{index + 1}</span>
-              <button 
-                onClick={() => moveRound(index, 'down')} 
-                disabled={index === rounds.length - 1}
-                className="text-slate-500 hover:text-white disabled:opacity-20"
-              >
-                <MoveDown className="w-4 h-4" />
-              </button>
-            </div>
+      {/* Settings Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Competition Name */}
+        <div className="bg-slate-900 p-6 rounded-xl border border-slate-800">
+           <label className="block text-sm font-bold text-slate-300 mb-2">Competition Name</label>
+           <input 
+              type="text"
+              value={competitionName}
+              onChange={(e) => setCompetitionName(e.target.value)}
+              placeholder="e.g. National Debate Championship 2024"
+              className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-brand-500 outline-none"
+           />
+           <p className="text-xs text-slate-500 mt-2">Displayed at the top of the timer screen.</p>
+        </div>
 
-            <div className="p-3 bg-slate-800 rounded-lg">
-              {round.type === 'NORMAL' ? (
-                <Clock className="w-6 h-6 text-brand-400" />
-              ) : (
-                <Users className="w-6 h-6 text-emerald-400" />
-              )}
-            </div>
+        {/* Background Image */}
+        <div className="bg-slate-900 p-6 rounded-xl border border-slate-800">
+           <label className="block text-sm font-bold text-slate-300 mb-2">Timer Background</label>
+           
+           {!backgroundImage ? (
+             <div 
+               onClick={() => fileInputRef.current?.click()}
+               className="border-2 border-dashed border-slate-700 rounded-lg h-32 flex flex-col items-center justify-center cursor-pointer hover:border-brand-500 hover:bg-slate-800 transition-colors group"
+             >
+               <Upload className="w-8 h-8 text-slate-500 group-hover:text-brand-400 mb-2" />
+               <span className="text-sm text-slate-400 group-hover:text-slate-200">Click to upload image</span>
+               <input 
+                 ref={fileInputRef}
+                 type="file" 
+                 accept="image/*" 
+                 onChange={handleImageUpload} 
+                 className="hidden" 
+               />
+             </div>
+           ) : (
+             <div className="relative h-32 rounded-lg overflow-hidden border border-slate-700 group">
+               <img src={backgroundImage} alt="Background Preview" className="w-full h-full object-cover opacity-70" />
+               <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Button variant="danger" size="sm" onClick={() => setBackgroundImage(null)}>
+                    <Trash2 className="w-4 h-4 mr-2" /> Remove
+                  </Button>
+               </div>
+             </div>
+           )}
+        </div>
+      </div>
 
-            <div className="flex-1">
-              <h3 className="font-bold text-white">{round.title}</h3>
-              <div className="flex gap-3 text-sm text-slate-400">
-                <span className="flex items-center gap-1">
-                  {round.type === 'NORMAL' ? 'Standard Timer' : 'Back & Forth'}
-                </span>
-                <span>•</span>
-                <span>{round.durationMinutes} mins</span>
-                {round.speaker && (
-                  <>
-                    <span>•</span>
-                    <span className={round.speaker === 'A' ? 'text-brand-400' : 'text-emerald-400'}>
-                      Speaker {round.speaker}
-                    </span>
-                  </>
+      <hr className="border-slate-800" />
+
+      {/* Round List */}
+      <div>
+        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <Clock className="w-5 h-5 text-brand-500" /> Round Sequence
+        </h3>
+        
+        <div className="space-y-3">
+          {rounds.map((round, index) => (
+            <div key={round.id} className="flex items-center gap-4 bg-slate-900 p-4 rounded-xl border border-slate-800 hover:border-slate-600 transition-colors">
+              <div className="flex flex-col items-center justify-center gap-1 w-8">
+                <button 
+                  onClick={() => moveRound(index, 'up')} 
+                  disabled={index === 0}
+                  className="text-slate-500 hover:text-white disabled:opacity-20"
+                >
+                  <MoveUp className="w-4 h-4" />
+                </button>
+                <span className="text-xs font-bold text-slate-600">{index + 1}</span>
+                <button 
+                  onClick={() => moveRound(index, 'down')} 
+                  disabled={index === rounds.length - 1}
+                  className="text-slate-500 hover:text-white disabled:opacity-20"
+                >
+                  <MoveDown className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="p-3 bg-slate-800 rounded-lg">
+                {round.type === 'NORMAL' ? (
+                  <Clock className="w-6 h-6 text-brand-400" />
+                ) : (
+                  <Users className="w-6 h-6 text-emerald-400" />
                 )}
               </div>
+
+              <div className="flex-1">
+                <h3 className="font-bold text-white">{round.title}</h3>
+                <div className="flex gap-3 text-sm text-slate-400">
+                  <span className="flex items-center gap-1">
+                    {round.type === 'NORMAL' ? 'Standard Timer' : 'Back & Forth'}
+                  </span>
+                  <span>•</span>
+                  <span>{round.durationMinutes} mins</span>
+                  {round.speaker && (
+                    <>
+                      <span>•</span>
+                      <span className={round.speaker === 'A' ? 'text-brand-400' : 'text-emerald-400'}>
+                        Speaker {round.speaker}
+                      </span>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              <button 
+                onClick={() => removeRound(round.id)}
+                className="p-2 text-slate-500 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
+              >
+                <Trash2 className="w-5 h-5" />
+              </button>
             </div>
+          ))}
 
-            <button 
-              onClick={() => removeRound(round.id)}
-              className="p-2 text-slate-500 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
-            >
-              <Trash2 className="w-5 h-5" />
-            </button>
-          </div>
-        ))}
-
-        {rounds.length === 0 && (
-          <div className="text-center py-12 text-slate-500 border-2 border-dashed border-slate-800 rounded-xl">
-            No rounds added yet. Load a template or add rounds manually.
-          </div>
-        )}
+          {rounds.length === 0 && (
+            <div className="text-center py-12 text-slate-500 border-2 border-dashed border-slate-800 rounded-xl">
+              No rounds added yet. Load a template or add rounds manually.
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Add New Round Form */}

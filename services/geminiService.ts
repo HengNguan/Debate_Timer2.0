@@ -1,11 +1,8 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AspectRatio, DebateTopic } from '../types';
 
-const apiKey = process.env.API_KEY || '';
-const ai = new GoogleGenAI({ apiKey });
-
 export const generateDebateTopics = async (context: string): Promise<DebateTopic[]> => {
-  if (!apiKey) throw new Error("API Key missing");
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   try {
     const response = await ai.models.generateContent({
@@ -45,7 +42,7 @@ export const generateDebateTopics = async (context: string): Promise<DebateTopic
 };
 
 export const generateTeamMascot = async (prompt: string, aspectRatio: AspectRatio): Promise<string> => {
-  if (!apiKey) throw new Error("API Key missing");
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   try {
     const response = await ai.models.generateImages({
