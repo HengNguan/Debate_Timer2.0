@@ -1,14 +1,8 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, (process as any).cwd(), '');
-  return {
-    plugins: [react()],
-    // This ensures process.env.API_KEY works in the built app by mapping it to the VITE_ env var
-    define: {
-      'process.env.API_KEY': JSON.stringify(env.API_KEY || env.VITE_API_KEY)
-    }
-  }
+export default defineConfig({
+  plugins: [react()],
+  base: './', // Important for GitHub Pages to load assets correctly
 })
