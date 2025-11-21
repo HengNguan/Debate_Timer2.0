@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Pause, Play, RotateCcw, User } from 'lucide-react';
 import { Button } from './Button';
 import { TimerDisplay } from './TimerDisplay';
@@ -31,8 +31,6 @@ export const ChessTimer: React.FC<ChessTimerProps> = ({ initialTime }) => {
     setActiveSpeaker(SpeakerState.IDLE);
     setPausedState(SpeakerState.IDLE);
   }, [initialTime]);
-
-  const isPaused = activeSpeaker === SpeakerState.IDLE && pausedState !== SpeakerState.IDLE;
 
   const toggleTimer = (speaker: 'A' | 'B') => {
     if (activeSpeaker === SpeakerState.IDLE) {

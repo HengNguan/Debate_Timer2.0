@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import { Round, RoundType } from '../types';
 import { Button } from './Button';
-import { Plus, Trash2, Play, MoveUp, MoveDown, Clock, Users, Image as ImageIcon, X, Upload } from 'lucide-react';
+import { Plus, Trash2, Play, MoveUp, MoveDown, Clock, Users, Upload } from 'lucide-react';
 
 interface RoundManagerProps {
   rounds: Round[];
