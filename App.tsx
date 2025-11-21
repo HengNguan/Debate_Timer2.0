@@ -3,12 +3,11 @@ import React, { useState } from 'react';
 import { TimerMode, Round } from './types';
 import { NormalTimer } from './components/NormalTimer';
 import { ChessTimer } from './components/ChessTimer';
-import { Tools } from './components/Tools';
 import { RoundManager } from './components/RoundManager';
-import { Timer, Users, Sparkles, Mic2, List, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Timer, Users, Mic2, List, ChevronRight, ChevronLeft } from 'lucide-react';
 
 const App: React.FC = () => {
-  const [currentTab, setCurrentTab] = useState<'TIMER' | 'TOOLS' | 'FLOW'>('TIMER');
+  const [currentTab, setCurrentTab] = useState<'TIMER' | 'FLOW'>('TIMER');
   const [timerMode, setTimerMode] = useState<TimerMode>(TimerMode.STANDARD);
   
   // Flow State
@@ -49,7 +48,7 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 text-brand-500">
             <Mic2 className="w-6 h-6" />
-            <h1 className="font-bold text-xl tracking-tight text-white">辩论大师 AI</h1>
+            <h1 className="font-bold text-xl tracking-tight text-white">辩论大师</h1>
           </div>
 
           <nav className="flex bg-slate-800/50 p-1 rounded-lg">
@@ -72,16 +71,6 @@ const App: React.FC = () => {
               }`}
             >
               <List className="w-4 h-4" /> 流程
-            </button>
-            <button
-              onClick={() => setCurrentTab('TOOLS')}
-              className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all flex items-center gap-2 ${
-                currentTab === 'TOOLS' 
-                  ? 'bg-slate-700 text-white shadow-sm' 
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              <Sparkles className="w-4 h-4" /> AI 工具
             </button>
           </nav>
         </div>
@@ -190,7 +179,7 @@ const App: React.FC = () => {
               </div>
             </div>
           </div>
-        ) : currentTab === 'FLOW' ? (
+        ) : (
           <RoundManager 
             rounds={rounds} 
             setRounds={setRounds} 
@@ -200,8 +189,6 @@ const App: React.FC = () => {
             backgroundImage={backgroundImage}
             setBackgroundImage={setBackgroundImage}
           />
-        ) : (
-          <Tools />
         )}
       </main>
     </div>

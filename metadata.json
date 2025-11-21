@@ -1,5 +1,5 @@
 {
-  "name": "Copy of DebateMaster AI",
-  "description": "一个专业的辩论计时器，支持‘自由辩论’（攻守交替）模式，具有AI驱动的辩题生成和队伍吉祥物生成功能。",
+  "name": "DebateMaster",
+  "description": "一个专业的辩论计时器，支持‘自由辩论’（攻守交替）模式，支持自定义辩论流程。",
   "requestFramePermissions": []
 }
