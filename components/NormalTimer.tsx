@@ -86,18 +86,18 @@ export const NormalTimer: React.FC<NormalTimerProps> = ({ initialDuration, speak
 
       {/* Controls */}
       <div className="flex items-center gap-6">
-        <Button 
-          variant="secondary" 
-          size="lg" 
+        <Button
+          variant="secondary"
+          size="lg"
           onClick={handleReset}
           aria-label="重置计时器"
         >
           <RotateCcw className="w-6 h-6" />
         </Button>
 
-        <Button 
-          variant={isRunning ? "danger" : "primary"} 
-          size="lg" 
+        <Button
+          variant={isRunning ? "danger" : "primary"}
+          size="lg"
           className="w-32 h-20 rounded-2xl"
           onClick={handleStartPause}
         >
@@ -108,15 +108,14 @@ export const NormalTimer: React.FC<NormalTimerProps> = ({ initialDuration, speak
       {/* Settings - Hide predefined buttons if controlled by flow (initialDuration passed) */}
       {!initialDuration && (
         <div className="flex gap-2 mt-8 bg-slate-800/50 p-2 rounded-xl">
-          {[3, 4, 5, 7, 10].map(min => (
+          {[3, 3.5, 4, 5, 7, 10].map(min => (
             <button
               key={min}
               onClick={() => adjustTime(min)}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-                duration === min * 60 * 1000 
-                  ? 'bg-brand-600 text-white shadow-lg' 
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${duration === min * 60 * 1000
+                  ? 'bg-brand-600 text-white shadow-lg'
                   : 'text-slate-400 hover:text-white hover:bg-slate-700'
-              }`}
+                }`}
             >
               {min}分钟
             </button>
