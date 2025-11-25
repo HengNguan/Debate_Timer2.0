@@ -1,10 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TimerMode, Round } from './types';
 import { NormalTimer } from './components/NormalTimer';
 import { ChessTimer } from './components/ChessTimer';
 import { RoundManager } from './components/RoundManager';
 import { Timer, Users, Mic2, List, ChevronRight, ChevronLeft } from 'lucide-react';
+import { primeAudioContext } from './utils/sound';
 
 const App: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<'TIMER' | 'FLOW'>('TIMER');
@@ -28,6 +29,16 @@ const App: React.FC = () => {
       setCurrentTab('TIMER');
     }
   };
+
+  useEffect(() => {
+    const eventTypes = ['click', 'pointerdown', 'touchstart'] as const;
+    const handler = async () => {
+      await primeAudioContext();
+      eventTypes.forEach((et) => document.removeEventListener(et, handler));
+    };
+    eventTypes.forEach((et) => document.addEventListener(et, handler));
+    return () => eventTypes.forEach((et) => document.removeEventListener(et, handler));
+  }, []);
 
   const nextRound = () => {
     if (currentRoundIndex < rounds.length - 1) {
