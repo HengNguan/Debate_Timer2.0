@@ -20,7 +20,7 @@ export const playAlertSound = (type: 'warning' | 'end') => {
       gain.gain.setValueAtTime(0.15, now);
       gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
       osc.start(now);
-      osc.stop(now + 0.25);
+      osc.stop(now + 0.50);
     } else {
       // Long beep (Lower pitch, longer sustain) - Time up
       osc.type = 'square'; 
