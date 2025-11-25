@@ -48,7 +48,7 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 text-brand-500">
             <Mic2 className="w-6 h-6" />
-            <h1 className="font-bold text-xl tracking-tight text-white">辩论大师</h1>
+            <h1 className="font-bold text-xl tracking-tight text-white">辩论Timer</h1>
           </div>
 
           <nav className="flex bg-slate-800/50 p-1 rounded-lg">
