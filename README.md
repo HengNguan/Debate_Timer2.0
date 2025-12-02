@@ -1,5 +1,5 @@
 <div align="center">
-<img width="1200" alt="Debate Timer Screenshot" src="./assets/timer_screenshot.png" />
+<img width="1200" alt="Debate Timer Screenshot" src="./assets/template_dropdown_testing_1764679928726.webp" />
 </div>
 
 # Debate Master (辩论Timer)
@@ -26,7 +26,16 @@ A professional, feature-rich debate timer application designed for modern debate
 - **Customizable Rounds**:
   - Set title, type (Standard/Chess), duration (supports decimals like 3.5m), and speaker.
   - Drag and drop reordering (via Up/Down buttons).
-- **Templates**: One-click loading of standard debate formats.
+- **Template System**: Built-in debate format templates for quick setup:
+  - **标准赛制 (Standard Format)**: Traditional 5-round debate with opening statements, free debate, and closing arguments
+  - **完整赛制 (Extended Format)**: Full 9-round format including cross-examination and preparation time
+  - **快速赛制 (Quick Format)**: Condensed 5-round format with shorter time limits
+  - **自定义模板 (Custom Template)**: Start with a blank slate
+  - Simply select a template from the dropdown and click "加载模板" to apply
+
+![Template System Demo](/Users/hengnguan/.gemini/antigravity/brain/ae1e0d68-d4a9-4c45-80bd-299b5f801a4c/template_dropdown_testing_1764679928726.webp)
+
+> **For Developers**: Add new templates by editing `config/debateTemplates.json` with your custom debate formats.
 
 ### 🎨 Customization
 - **Competition Name**: Display the event name prominently.

@@ -19,3 +19,10 @@ export interface Round {
   durationMinutes: number;
   speaker?: 'A' | 'B'; // Only for NORMAL
 }
+
+export interface DebateTemplate {
+  id: string;
+  name: string;
+  description: string;
+  rounds: Omit<Round, 'id'>[];
+}

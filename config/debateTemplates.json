@@ -1,0 +1,140 @@
+[
+    {
+        "id": "standard",
+        "name": "标准赛制",
+        "description": "传统辩论赛制，包含立论、自由辩论和结辩环节",
+        "rounds": [
+            {
+                "title": "正方立论",
+                "type": "NORMAL",
+                "durationMinutes": 4,
+                "speaker": "A"
+            },
+            {
+                "title": "反方立论",
+                "type": "NORMAL",
+                "durationMinutes": 4,
+                "speaker": "B"
+            },
+            {
+                "title": "自由辩论",
+                "type": "CHESS",
+                "durationMinutes": 3
+            },
+            {
+                "title": "反方结辩",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "B"
+            },
+            {
+                "title": "正方结辩",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "A"
+            }
+        ]
+    },
+    {
+        "id": "extended",
+        "name": "完整赛制",
+        "description": "完整辩论赛制，包含攻辩、质询、准备时间等环节",
+        "rounds": [
+            {
+                "title": "正方一辩陈词",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "A"
+            },
+            {
+                "title": "反方一辩陈词",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "B"
+            },
+            {
+                "title": "正方二辩质询",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "A"
+            },
+            {
+                "title": "反方二辩质询",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "B"
+            },
+            {
+                "title": "正方准备时间",
+                "type": "NORMAL",
+                "durationMinutes": 1,
+                "speaker": "A"
+            },
+            {
+                "title": "反方准备时间",
+                "type": "NORMAL",
+                "durationMinutes": 1,
+                "speaker": "B"
+            },
+            {
+                "title": "自由辩论",
+                "type": "CHESS",
+                "durationMinutes": 4
+            },
+            {
+                "title": "反方总结陈词",
+                "type": "NORMAL",
+                "durationMinutes": 4,
+                "speaker": "B"
+            },
+            {
+                "title": "正方总结陈词",
+                "type": "NORMAL",
+                "durationMinutes": 4,
+                "speaker": "A"
+            }
+        ]
+    },
+    {
+        "id": "quick",
+        "name": "快速赛制",
+        "description": "简化版辩论赛制，适合时间较短的比赛",
+        "rounds": [
+            {
+                "title": "正方立论",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "A"
+            },
+            {
+                "title": "反方立论",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "B"
+            },
+            {
+                "title": "自由辩论",
+                "type": "CHESS",
+                "durationMinutes": 2
+            },
+            {
+                "title": "反方总结",
+                "type": "NORMAL",
+                "durationMinutes": 1.5,
+                "speaker": "B"
+            },
+            {
+                "title": "正方总结",
+                "type": "NORMAL",
+                "durationMinutes": 1.5,
+                "speaker": "A"
+            }
+        ]
+    },
+    {
+        "id": "custom",
+        "name": "自定义模板",
+        "description": "空白模板，可自行添加环节",
+        "rounds": []
+    }
+]
