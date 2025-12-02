@@ -27,7 +27,7 @@ A professional, feature-rich debate timer application designed for modern debate
   - Set title, type (Standard/Chess), duration (supports decimals like 3.5m), and speaker.
   - Drag and drop reordering (via Up/Down buttons).
 - **Template System**: Built-in debate format templates for quick setup:
-  - **标准赛制 (Standard Format)**: Traditional 5-round debate with opening statements, free debate, and closing arguments
+  - **全中辩 (National Secondary School Mandarin Debate Tournament)**: Bigest mandarin debate competition in Malaysia 
   - **完整赛制 (Extended Format)**: Full 9-round format including cross-examination and preparation time
   - **快速赛制 (Quick Format)**: Condensed 5-round format with shorter time limits
   - **自定义模板 (Custom Template)**: Start with a blank slate
