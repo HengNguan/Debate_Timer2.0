@@ -1,5 +1,5 @@
 <div align="center">
-<img width="1200" alt="Debate Timer Screenshot" src="./assets/template_dropdown_testing_1764679928726.webp" />
+<img width="1200" alt="Debate Timer Screenshot" src="./assets/timer.webp" />
 </div>
 
 # Debate Master (辩论Timer)

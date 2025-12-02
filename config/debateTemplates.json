@@ -1,8 +1,8 @@
 [
     {
         "id": "standard",
-        "name": "标准赛制",
-        "description": "传统辩论赛制，包含立论、自由辩论和结辩环节",
+        "name": "全中辩",
+        "description": "全国中学辩论赛",
         "rounds": [
             {
                 "title": "正方立论",
@@ -17,20 +17,73 @@
                 "speaker": "B"
             },
             {
-                "title": "自由辩论",
-                "type": "CHESS",
-                "durationMinutes": 3
-            },
-            {
-                "title": "反方结辩",
+                "title": "盘问（一）：反方盘问正方",
                 "type": "NORMAL",
                 "durationMinutes": 3,
                 "speaker": "B"
             },
             {
-                "title": "正方结辩",
+                "title": "盘问（一）：正方盘问反方",
                 "type": "NORMAL",
                 "durationMinutes": 3,
+                "speaker": "A"
+            },
+            {
+                "title": "盘问（二）：反方盘问正方",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "B"
+            },
+            {
+                "title": "盘问（二）：正方盘问反方",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "A"
+            },
+            {
+                "title": "驳论（一）：反方",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "B"
+            },
+            {
+                "title": "驳论（一）：正方",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "A"
+            },
+            {
+                "title": "攻辩",
+                "type": "CHESS",
+                "durationMinutes": 2
+            },
+            {
+                "title": "驳论（二）：正方",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "A"
+            },
+            {
+                "title": "驳论（二）：反方",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "B"
+            },
+            {
+                "title": "自由辩论",
+                "type": "CHESS",
+                "durationMinutes": 4
+            },
+            {
+                "title": "反方结辩",
+                "type": "NORMAL",
+                "durationMinutes": 4,
+                "speaker": "B"
+            },
+            {
+                "title": "正方结辩",
+                "type": "NORMAL",
+                "durationMinutes": 4,
                 "speaker": "A"
             }
         ]
