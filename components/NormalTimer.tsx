@@ -21,6 +21,9 @@ export const NormalTimer: React.FC<NormalTimerProps> = ({ initialDuration, speak
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef<number | null>(null);
 
+  const startTimeRef = useRef<number>(0);
+  const initialRemainingRef = useRef<number>(startDuration);
+
   // Reset whenever the initial configuration changes (e.g. changing rounds)
   useEffect(() => {
     const newDuration = initialDuration ? initialDuration * 60 * 1000 : DEFAULT_TIME_MS;
@@ -30,8 +33,16 @@ export const NormalTimer: React.FC<NormalTimerProps> = ({ initialDuration, speak
   }, [initialDuration]);
 
   const handleStartPause = useCallback(() => {
-    setIsRunning(prev => !prev);
-  }, []);
+    setIsRunning(prev => {
+      const willRun = !prev;
+      if (willRun) {
+        // Starting or Resuming
+        startTimeRef.current = Date.now();
+        initialRemainingRef.current = remaining;
+      }
+      return willRun;
+    });
+  }, [remaining]);
 
   const handleReset = useCallback(() => {
     setIsRunning(false);
@@ -48,22 +59,23 @@ export const NormalTimer: React.FC<NormalTimerProps> = ({ initialDuration, speak
   useEffect(() => {
     if (isRunning && remaining > 0) {
       timerRef.current = window.setInterval(() => {
+        const elapsed = Date.now() - startTimeRef.current;
+        const nextTime = Math.max(0, initialRemainingRef.current - elapsed);
+        
         setRemaining(prev => {
-          const nextTime = prev - 100;
+           // Sound Triggers
+           // 1. 30s Warning: Trigger if we crossed the 30000ms mark
+           if (prev > 30000 && nextTime <= 30000) {
+             playAlertSound('warning');
+           }
 
-          // Sound Triggers
-          // 1. 30s Warning: Trigger if we crossed the 30000ms mark
-          if (prev > 30000 && nextTime <= 30000) {
-            playAlertSound('warning');
-          }
-
-          // 2. Time Up
-          if (nextTime <= 0) {
-            playAlertSound('end');
-            setIsRunning(false);
-            return 0;
-          }
-          return nextTime;
+           // 2. Time Up
+           if (nextTime <= 0) {
+             playAlertSound('end');
+             setIsRunning(false);
+             return 0;
+           }
+           return nextTime;
         });
       }, 100);
     } else {
@@ -73,7 +85,7 @@ export const NormalTimer: React.FC<NormalTimerProps> = ({ initialDuration, speak
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isRunning, remaining]);
+  }, [isRunning]);
 
   return (
     <div className="flex flex-col items-center justify-center space-y-12 h-full w-full py-8">
