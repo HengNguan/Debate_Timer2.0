@@ -49,11 +49,11 @@ export const playAlertSound = async (type: 'warning' | 'end') => {
     const now = ctx.currentTime;
 
     // Centralized configuration for alert sounds so we can tune them easily
-    const WARNING_DURATION = 1.0; // seconds - must be less than END_DURATION
+    const WARNING_DURATION = 1.5; // seconds - must be less than END_DURATION
     const WARNING_FREQ = 880; // A5
-    const WARNING_INITIAL_GAIN = 0.50; // increase volume for warning
+    const WARNING_INITIAL_GAIN = 0.80; // increase volume for warning
 
-    const END_DURATION = 1.5; // seconds
+    const END_DURATION = 2.0; // seconds
     const END_FREQ = 440; // A4
     const END_INITIAL_GAIN = 0.20;
 
