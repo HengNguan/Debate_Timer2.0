@@ -4,6 +4,8 @@
 
 # Debate Master (辩论Timer)
 
+Live demo: https://hengnguan.github.io/Debate_Timer2.0/
+
 A professional, feature-rich debate timer application designed for modern debate competitions.
 
 ## Features
@@ -57,7 +59,7 @@ A professional, feature-rich debate timer application designed for modern debate
 
 3. Open http://localhost:5173 in your browser.
 
-Note: Modern browsers require a user gesture to enable audio playback. This app automatically primes the audio engine on the first click/interaction (so the first alert will play correctly). If you encounter silent alerts, click or tap anywhere in the app once and try again.
+Note: Modern browsers require a user gesture to enable audio playback. This app automatically primes the audio engine on the first click/interaction (so the first alert will play correctly). If yo[...] 
 
 ## Tech Stack
 - React 19
