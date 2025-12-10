@@ -35,8 +35,6 @@ A professional, feature-rich debate timer application designed for modern debate
   - **自定义模板 (Custom Template)**: Start with a blank slate
   - Simply select a template from the dropdown and click "加载模板" to apply
 
-![Template System Demo](/Users/hengnguan/.gemini/antigravity/brain/ae1e0d68-d4a9-4c45-80bd-299b5f801a4c/template_dropdown_testing_1764679928726.webp)
-
 > **For Developers**: Add new templates by editing `config/debateTemplates.json` with your custom debate formats.
 
 ### 🎨 Customization
@@ -59,7 +57,7 @@ A professional, feature-rich debate timer application designed for modern debate
 
 3. Open http://localhost:5173 in your browser.
 
-Note: Modern browsers require a user gesture to enable audio playback. This app automatically primes the audio engine on the first click/interaction (so the first alert will play correctly). If yo[...] 
+Note: Modern browsers require a user gesture to enable audio playback. This app automatically primes the audio engine on the first click/interaction (so the first alert will play correctly). If you encounter silent alerts, click or tap anywhere in the app once and try again.
 
 ## Tech Stack
 - React 19
