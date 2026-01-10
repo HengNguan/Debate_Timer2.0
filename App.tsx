@@ -79,7 +79,7 @@ const App: React.FC = () => {
               <Mic2 className="w-6 h-6" />
             )}
             <h1 className="font-bold text-xl tracking-tight text-white">
-              {isCompetitionTheme ? '《辩有趣》全槟华小辩' : '辩论Timer'}
+              {isCompetitionTheme ? '全槟华小辩' : '辩论Timer'}
             </h1>
           </div>
 
