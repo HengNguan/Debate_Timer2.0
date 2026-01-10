@@ -1,40 +1,71 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>辩论Timer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-            },
-            colors: {
-              brand: {
-                50: '#f0f9ff',
-                100: '#e0f2fe',
-                500: '#0ea5e9',
-                600: '#0284c7',
-                700: '#0369a1',
-                900: '#0c4a6e',
-              }
-            }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>辩论Timer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
           },
+          colors: {
+            brand: {
+              50: 'var(--color-brand-50)',
+              100: 'var(--color-brand-100)',
+              500: 'var(--color-brand-500)',
+              600: 'var(--color-brand-600)',
+              700: 'var(--color-brand-700)',
+              900: 'var(--color-brand-900)',
+            }
+          }
         },
-      }
-    </script>
-    <style>
-      body {
-        background-color: #0f172a;
-        color: #f8fafc;
-      }
-    </style>
+      },
+    }
+  </script>
+  <style>
+    :root {
+      /* Default Theme (Blue) */
+      --color-brand-50: #f0f9ff;
+      --color-brand-100: #e0f2fe;
+      --color-brand-500: #0ea5e9;
+      --color-brand-600: #0284c7;
+      --color-brand-700: #0369a1;
+      --color-brand-900: #0c4a6e;
+    }
+
+    .theme-competition {
+      /* Competition Theme (Bian You Qu - Poster Yellow & Blue) */
+      --color-brand-50: #fffbeb;
+      --color-brand-100: #fef3c7;
+      --color-brand-500: #ffcc00;
+      /* Poster Yellow */
+      --color-brand-600: #ff9900;
+      /* Poster Orange (for buttons/contrast) */
+      --color-brand-700: #e68a00;
+      --color-brand-900: #cc7a00;
+    }
+
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      transition: background-color 0.5s ease;
+    }
+
+    /* Competition Background Override */
+    body.theme-competition {
+      background-color: #0055aa;
+      /* Poster Blue Background */
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -48,8 +79,10 @@
 }
 </script>
 </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
 </html>

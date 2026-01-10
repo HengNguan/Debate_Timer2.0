@@ -89,6 +89,88 @@
         ]
     },
     {
+        "id": "pdcsr",
+        "name": "《辩有趣》全槟华小辩",
+        "description": "《辩有趣》全槟华小辩赛制",
+        "rounds": [
+            {
+                "title": "正方一辩立论",
+                "type": "NORMAL",
+                "durationMinutes": 3.5,
+                "speaker": "A"
+            },
+            {
+                "title": "反方一辩立论",
+                "type": "NORMAL",
+                "durationMinutes": 3.5,
+                "speaker": "B"
+            },
+            {
+                "title": "反方二辩质询",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "B"
+            },
+            {
+                "title": "正方二辩质询",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "A"
+            },
+            {
+                "title": "正方二辩质询小结",
+                "type": "NORMAL",
+                "durationMinutes": 1.5,
+                "speaker": "A"
+            },
+            {
+                "title": "反方二辩质询小结",
+                "type": "NORMAL",
+                "durationMinutes": 1.5,
+                "speaker": "B"
+            },
+            {
+                "title": "正方三辩驳论",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "A"
+            },
+            {
+                "title": "反方三辩驳论",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "B"
+            },
+            {
+                "title": "自由辩论",
+                "type": "CHESS",
+                "durationMinutes": 3
+            },
+            {
+                "title": "反方总结陈词",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "B"
+            },
+            {
+                "title": "正方总结陈词",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "A"
+            },
+            {
+                "title": "教练喊停环节",
+                "type": "NORMAL",
+                "durationMinutes": 2
+            },
+            {
+                "title": "教练喊停环节",
+                "type": "NORMAL",
+                "durationMinutes": 3
+            }
+        ]
+    },
+    {
         "id": "CDWC",
         "name": "世界杯",
         "description": "世界杯论赛制",
@@ -99,7 +181,7 @@
                 "durationMinutes": 3,
                 "speaker": "A"
             },
-             {
+            {
                 "title": "反方二辩质询",
                 "type": "NORMAL",
                 "durationMinutes": 1.5,
@@ -140,7 +222,7 @@
                 "durationMinutes": 1.5,
                 "speaker": "A"
             },
-             {
+            {
                 "title": "反方三辩盘问",
                 "type": "NORMAL",
                 "durationMinutes": 1.5,
