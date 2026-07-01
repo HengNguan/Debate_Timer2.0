@@ -277,6 +277,130 @@
         ]
     },
     {
+        "id": "qxb",
+        "name": "华理会华小华语辩论比赛",
+        "description": "华理会华小华语辩论比赛赛制",
+        "rounds": [
+            {
+                "title": "铃声测试",
+                "type": "NORMAL",
+                "durationMinutes": 0.6
+            },
+            {
+                "title": "铃声测试",
+                "type": "NORMAL",
+                "durationMinutes": 0.1
+            },
+            {
+                "title": "正方一辩立论",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "A"
+            },
+            {
+                "title": "反方一辩立论",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "B"
+            },
+            {
+                "title": "反方三辩质询",
+                "type": "NORMAL",
+                "durationMinutes": 1.5,
+                "speaker": "B"
+            },
+            {
+                "title": "正方三辩质询",
+                "type": "NORMAL",
+                "durationMinutes": 1.5,
+                "speaker": "A"
+            },
+            {
+                "title": "正方二辩申论",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "A"
+            },
+            {
+                "title": "反方二辩申论",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "B"
+            },
+            
+            {
+                "title": "正方四辩质询",
+                "type": "NORMAL",
+                "durationMinutes": 1.5,
+                "speaker": "A"
+            },
+            {
+                "title": "反方四辩质询",
+                "type": "NORMAL",
+                "durationMinutes": 1.5,
+                "speaker": "B"
+            },
+            {
+                "title": "正方三辩申论",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "A"
+            },
+            {
+                "title": "反方三辩申论",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "B"
+            },
+            {
+                "title": "自由辩论",
+                "type": "CHESS",
+                "durationMinutes": 3
+            },
+            {
+                "title": "反方总结陈词",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "B"
+            },
+            {
+                "title": "正方总结陈词",
+                "type": "NORMAL",
+                "durationMinutes": 3,
+                "speaker": "A"
+            },
+            {
+                "title": "教练喊停环节",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "A"
+            },
+            {
+                "title": "教练喊停环节",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "B"
+            },
+            {
+                "title": "教练喊停环节",
+                "type": "NORMAL",
+                "durationMinutes": 3
+            },
+            {
+                "title": "正方·紧急暂停",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "A"
+            },
+            {
+                "title": "反方·紧急暂停",
+                "type": "NORMAL",
+                "durationMinutes": 2,
+                "speaker": "B"
+            }
+        ]
+    },
+    {
         "id": "CDWC",
         "name": "世界杯",
         "description": "世界杯论赛制",
